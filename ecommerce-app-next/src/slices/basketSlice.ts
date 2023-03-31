@@ -1,6 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+interface BasketItem {
+  id: number;
+  title: string;
+  price: number;
+}
+
+interface BasketState {
+  items: BasketItem[];
+}
+
+const initialState: BasketState = {
   items: [],
 };
 
@@ -15,7 +25,6 @@ export const basketSlice = createSlice({
 
 export const { addToBasket, removeFromBasket } = basketSlice.actions;
 
-// Selectors - This is how we pull information from the Global store slice
-export const selectItems = (state) => state.basket.items;
+export const selectItems = (state: { basket: BasketState }) => state.basket.items;
 
 export default basketSlice.reducer;
