@@ -1,14 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface BasketItem {
-  id: number;
-  title: string;
-  price: number;
-}
-
-interface BasketState {
-  items: BasketItem[];
-}
+import { BasketItem, BasketState } from "@/typings";
 
 const initialState: BasketState = {
   items: [],
@@ -18,8 +9,15 @@ export const basketSlice = createSlice({
   name: "basket",
   initialState,
   reducers: {
-    addToBasket: (state, action) => {},
-    removeFromBasket: (state, action) => {},
+    addToBasket: (state, action: PayloadAction<BasketItem>) => {
+      state.items.push(action.payload);
+    },
+    removeFromBasket: (state, action: PayloadAction<number>) => {
+      const index = state.items.findIndex((item) => item.id === action.payload);
+      if (index >= 0) {
+        state.items.splice(index, 1);
+      }
+    },
   },
 });
 
