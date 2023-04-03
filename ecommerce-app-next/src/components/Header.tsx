@@ -1,7 +1,20 @@
 import Image from "next/image";
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { signIn, signOut, useSession } from "next-auth/react"
+
+function sliceAndCapitalize(str: string) {
+    const spaceIndex = str.indexOf(' ');
+    const sliced = str.slice(0, spaceIndex);
+    const capitalized = sliced.charAt(0).toUpperCase() + sliced.slice(1);
+    return capitalized;
+}
 
 function Header() {
+    const { data: session } = useSession();
+    console.log(session);
+
+    let firstName = sliceAndCapitalize(session?.user?.name || 'Guest');
+
     return (
         <header>
             <div className="flex items-center bg-amazon_blue p-1 flex-grow py-2">
@@ -15,15 +28,15 @@ function Header() {
                 </div>
 
                 <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
-                    <div className="link">
-                        <p>Hello Paul</p>
+                    <div onClick={() => signIn()} className="link cursor-pointer">
+                        <p>Hello {firstName}</p>
                         <p className="font-extrabold md:text-sm">Account & Lists</p>
                     </div>
-                    <div className="link">
+                    <div className="link cursor-pointer">
                         <p>Returns</p>
                         <p className="font-extrabold md:text-sm">& Orders</p>
                     </div>
-                    <div className="relative link flex items-center">
+                    <div className="relative link cursor-pointer flex items-center">
                         <span className="absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded text-black font-bold">0</span>
                         <ShoppingCartIcon className="h-10" />
                         <p className="hidden md:inline font-extrabold md:text-sm mt-2">Basket</p>

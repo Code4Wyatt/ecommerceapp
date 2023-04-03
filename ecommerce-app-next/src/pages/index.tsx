@@ -2,6 +2,7 @@ import Head from "next/head";
 import Header from './../components/Header';
 import Banner from './../components/Banner';
 import ProductFeed from './../components/ProductFeed';
+import { getServerSession } from "next-auth/next";
 
 export default function Home({ products }: any) {
   return (
@@ -23,6 +24,7 @@ export default function Home({ products }: any) {
 }
 
 export async function getServerSideProps(context: any) {
+
   const products = await fetch('https://fakestoreapi.com/products').then(
     (res) => res.json()
   );

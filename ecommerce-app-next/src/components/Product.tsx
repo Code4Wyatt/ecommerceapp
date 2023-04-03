@@ -20,18 +20,18 @@ function Product({ id, title, description, price, category, image }: ProductProp
 
     return <div className="relative flex flex-col m-5 bg-white z-30 p-10">
         <p className="absolute top-2 right-2 text-xs italic text-gray-400">{category}</p>
-        <div style={{ display: 'flex', justifyContent: 'center' }}><Image src={image} alt={title} height={200} width={200} className="object-contain" /></div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}><Image src={image} alt={title} height={200} width={200} className="object-contain h-200" /></div>
 
 
-        <h4 className="my-3">{title}</h4>
+        <h4 className="my-">{title}</h4>
 
-        <div className="flex">
+        <div className="flex mt-auto">
             {Array(rating).fill(0).map((_, i) => (
                 <StarIcon className="h-5 text-yellow-500" />
             ))}
         </div>
 
-        <p className="text-xs my-2 line-clamp-2">{description}</p>
+        <p className="text-xs  line-clamp-2">{description}</p>
 
         <div className="mb-5">
             <p>{formattedPrice}</p>
